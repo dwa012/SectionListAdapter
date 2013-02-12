@@ -1,5 +1,7 @@
 ## Section List Adapter ##
 
+I based this project off of the [Amazing-ListView][1]. The work is fairly divergent at this point, but some of the basic techniques are used from that implementation. 
+
 *Note: Still working on the documentation and a sticky header implementation*
 
 This project was created to make a simpler and easier version of a sectioned ListView. I found several examples that were entirely to complicated to implement.
@@ -32,3 +34,6 @@ The type of `Map` that you use will determine the order that the sections are di
 
 
     
+
+
+  [1]: http://code.google.com/p/android-amazing-listview/
