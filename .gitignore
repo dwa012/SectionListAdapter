@@ -19,6 +19,9 @@ local.properties
 .classpath
 .project
 
+# Ignore the JavaDocs folder ... for now 
+doc/
+
 # IntelliJ files
 *.iml
 *.ipr
