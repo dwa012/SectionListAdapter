@@ -49,6 +49,7 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
 
     private Map<Section, List<Item>> sectionListMap;
     private Collection<List<Item>> values; // get the vales in one collection
+    private List<Section> sectionList;
     private LayoutInflater li;
     private Context context;
     
@@ -152,7 +153,13 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
         final int section = getSectionIndexForPosition(position);
         boolean displaySectionHeaders = (getPositionIndexForSection(section) == position);
 
-        if ( displaySectionHeaders ) {
+        //if the sticky header option is used, then do not show the first header in the list.
+        if (stickeyHeader != null && position == 0){
+            viewGroup.getChildAt(0).setVisibility(View.GONE);
+            //set the sticky header to the first header in the list
+            stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(position)), stickeyHeader, viewGroup);
+        }
+        else if ( displaySectionHeaders ) {
             viewGroup.getChildAt(0).setVisibility(View.VISIBLE);
         } else {
             viewGroup.getChildAt(0).setVisibility(View.GONE);
@@ -193,6 +200,8 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
         return resultSection;
     }
 
+
+
     //TODO need to redo this as make it a little more efficient.
     private List<Section> getSections() {
         List<Section> res = new ArrayList<Section>(sectionListMap.keySet().size());
@@ -220,20 +229,9 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
                 if( currentSectionHeaderIndex != getSectionIndexForPosition(firstVisibleItem)) {
                     currentSectionHeaderIndex = getSectionIndexForPosition(firstVisibleItem);
 
-//                    boolean headerIsAtTop = (getPositionIndexForSection(section) == firstVisibleItem);
-
                     stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(firstVisibleItem)), stickeyHeader, stickeyHeader.getRootView());
 
                 }
-
-
-
-//                if ( headerIsAtTop ) {
-//
-//                }
-//
-//                getHeaderView()stickeyHeader
-//                boolean displaySectionHeaders = (getPositionIndexForSection(section) == firstVisibleItem);
             }
         }
 
