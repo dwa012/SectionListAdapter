@@ -15,7 +15,7 @@
  */
 
 
-package com.bytemesoftware.SectionListAdapter;
+package com.bytemesoftware.Adapters;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -43,28 +43,29 @@ import java.util.Map;
  * nature of how the map is implemented. I suggest that you use the LinkedHashMap to maintain
  * insertion order.
  *
- * (Note : if you use a TreeMap you should get naturally ordered sections for free.)
+ * (Note : if you use a TreeMap you should get natursectionListMapy ordered sections for free.)
  *
  * User: Daniel Ward ( dwa012@gmail.com )
  * Date: 2/11/13
  */
 public abstract class SectionListAdapter<Section,Item> implements Adapter {
 
-    private Map<Section, List<Item>> all;
+    private Map<Section, List<Item>> sectionListMap;
     private Collection<List<Item>> values; // get the vales in one collection
     private LayoutInflater li;
     private Context context;
-    private TextView stickeyHeader;
+    
+    private View stickeyHeader;
 
     public SectionListAdapter(Map<Section, List<Item>> items, Context context) {
         this(null, items,context);
     }
 
-    public SectionListAdapter(TextView stickyHeader, Map<Section, List<Item>> items, Context context) {
+    public SectionListAdapter(View stickyHeader, Map<Section, List<Item>> items, Context context) {
         this.stickeyHeader = stickyHeader;
-        this.all = items;
+        this.sectionListMap = items;
         this.context = context;
-        this.values = all.values();
+        this.values = sectionListMap.values();
     }
 
     // Methods that need to be implemented in a subclass. This is all that needs to be implemented
@@ -195,13 +196,50 @@ public abstract class SectionListAdapter<Section,Item> implements Adapter {
         return resultSection;
     }
 
+    //TODO need to redo this as make it a little more efficient.
     private List<Section> getSections() {
-        List<Section> res = new ArrayList<Section>(all.keySet().size());
+        List<Section> res = new ArrayList<Section>(sectionListMap.keySet().size());
 
-        for ( Section s : all.keySet()){
+        for ( Section s : sectionListMap.keySet()){
             res.add(s);
         }
 
         return res;
+    }
+
+    public class StickyHeaderScrollListener implements AbsListView.OnScrollListener {
+
+        private int currentSectionHeaderIndex = 0;
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if( stickeyHeader != null && visibleItemCount != 0) {
+                //check if the first item is a header item
+
+
+                if( currentSectionHeaderIndex != getSectionIndexForPosition(firstVisibleItem)) {
+                    currentSectionHeaderIndex = getSectionIndexForPosition(firstVisibleItem);
+
+//                    boolean headerIsAtTop = (getPositionIndexForSection(section) == firstVisibleItem);
+
+                    stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(firstVisibleItem)), stickeyHeader, stickeyHeader.getRootView());
+
+                }
+
+
+
+//                if ( headerIsAtTop ) {
+//
+//                }
+//
+//                getHeaderView()stickeyHeader
+//                boolean displaySectionHeaders = (getPositionIndexForSection(section) == firstVisibleItem);
+            }
+        }
     }
 }
