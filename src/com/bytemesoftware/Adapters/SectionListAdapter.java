@@ -204,4 +204,39 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter {
         return res;
     }
 
+    public class StickyHeaderScrollListener implements AbsListView.OnScrollListener {
+
+        private int currentSectionHeaderIndex = 0;
+
+        @Override
+        public void onScrollStateChanged(AbsListView view, int scrollState) {
+
+        }
+
+        @Override
+        public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
+            if( stickeyHeader != null && visibleItemCount != 0) {
+                //check if the first item is a header item
+
+
+                if( currentSectionHeaderIndex != getSectionIndexForPosition(firstVisibleItem)) {
+                    currentSectionHeaderIndex = getSectionIndexForPosition(firstVisibleItem);
+
+//                    boolean headerIsAtTop = (getPositionIndexForSection(section) == firstVisibleItem);
+
+                    stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(firstVisibleItem)), stickeyHeader, stickeyHeader.getRootView());
+
+                }
+
+
+
+//                if ( headerIsAtTop ) {
+//
+//                }
+//
+//                getHeaderView()stickeyHeader
+//                boolean displaySectionHeaders = (getPositionIndexForSection(section) == firstVisibleItem);
+            }
+        }
+    }
 }
