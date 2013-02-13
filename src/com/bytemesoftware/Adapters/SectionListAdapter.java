@@ -21,10 +21,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AbsListView;
-import android.widget.Adapter;
-import android.widget.LinearLayout;
-import android.widget.TextView;
+import android.widget.*;
 
 import java.util.ArrayList;
 import java.util.Collection;
@@ -48,7 +45,7 @@ import java.util.Map;
  * User: Daniel Ward ( dwa012@gmail.com )
  * Date: 2/11/13
  */
-public abstract class SectionListAdapter<Section,Item> implements Adapter {
+public abstract class SectionListAdapter<Section,Item> extends BaseAdapter {
 
     private Map<Section, List<Item>> sectionListMap;
     private Collection<List<Item>> values; // get the vales in one collection
