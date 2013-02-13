@@ -45,7 +45,7 @@ import java.util.Map;
  * User: Daniel Ward ( dwa012@gmail.com )
  * Date: 2/11/13
  */
-public abstract class SectionListAdapter<Section,Item> extends BaseAdapter {
+public abstract class SectionListAdapter<Section,Item> extends BaseAdapter implements AbsListView.OnScrollListener {
 
     private Map<Section, List<Item>> sectionListMap;
     private Collection<List<Item>> values; // get the vales in one collection
@@ -204,8 +204,6 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter {
         return res;
     }
 
-    public class StickyHeaderScrollListener implements AbsListView.OnScrollListener {
-
         private int currentSectionHeaderIndex = 0;
 
         @Override
@@ -238,5 +236,5 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter {
 //                boolean displaySectionHeaders = (getPositionIndexForSection(section) == firstVisibleItem);
             }
         }
-    }
+
 }
