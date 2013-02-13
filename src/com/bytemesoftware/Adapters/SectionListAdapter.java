@@ -220,20 +220,22 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
 
         @Override
         public void onScrollStateChanged(AbsListView view, int scrollState) {
-
+            // left blank
         }
 
         @Override
         public void onScroll(AbsListView view, int firstVisibleItem, int visibleItemCount, int totalItemCount) {
             if( stickeyHeader != null && visibleItemCount != 0) {
-                //check if the first item is a header item
 
-
+                // check of the current section index is different  than the section at the top of the list
                 if( currentSectionHeaderIndex != getSectionIndexForPosition(firstVisibleItem)) {
+                    // update the current section index to the section of the first item
                     currentSectionHeaderIndex = getSectionIndexForPosition(firstVisibleItem);
 
-                    stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(firstVisibleItem)), stickeyHeader, stickeyHeader.getRootView());
-
+                    // update the sticky header to the new Section header object
+                    stickeyHeader = getHeaderView(getSections().get(getSectionIndexForPosition(firstVisibleItem)),
+                                                  stickeyHeader,
+                                                  stickeyHeader.getRootView());
                 }
             }
         }
