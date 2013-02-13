@@ -64,6 +64,7 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
         this.sectionListMap = items;
         this.context = context;
         this.values = sectionListMap.values();
+        this.sectionList = populateSectionList();
     }
 
     // Methods that need to be implemented in a subclass. This is all that needs to be implemented
@@ -200,10 +201,7 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
         return resultSection;
     }
 
-
-
-    //TODO need to redo this as make it a little more efficient.
-    private List<Section> getSections() {
+    private List<Section> populateSectionList(){
         List<Section> res = new ArrayList<Section>(sectionListMap.keySet().size());
 
         for ( Section s : sectionListMap.keySet()){
@@ -211,6 +209,11 @@ public abstract class SectionListAdapter<Section,Item> extends BaseAdapter imple
         }
 
         return res;
+    }
+
+    //TODO need to redo this as make it a little more efficient.
+    private List<Section> getSections() {
+        return sectionList;
     }
 
         private int currentSectionHeaderIndex = 0;
